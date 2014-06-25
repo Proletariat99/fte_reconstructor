@@ -1,0 +1,11 @@
+(1,5)tha_20070608_0630_0830_GSM_v4_reduced.dat
+()thb_20071114_1500_1900_GSM_v4_onboard.dat
+
+thb_20080405_0300_1200_GSM_v4_onboard.dat
+thb_20080413_0130_1030_GSM_v4_onboard.dat
+thb_20090406_0500_1300_GSM_v4_onboard.dat
+thc_20080405_0300_1200_GSM_v4_onboard.dat
+thc_20080413_0130_1100_GSM_v4_onboard.dat
+thc_20080415_0600_1000_GSM_v4_onboard.dat
+thc_20080419_0130_0600_GSM_v4_onboard.dat
+thc_20080517_0400_0730_GSM_v4_onboard.dat

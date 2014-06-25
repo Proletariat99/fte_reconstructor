@@ -1,0 +1,190 @@
+ % MATLAB Crib Sheet
+%pnew = importdata('Pdata.dat', ' ', 1)
+%bnew = importdata('Bdata.dat', ' ', 1)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MVAB and DHT TEST CASE %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+bhead = 9
+phead = 11
+
+bfn = 'thc_20080415_0600_1000_mag_v4.txt'
+pfn = 'thc_20080415_0600_1000_plasma_v4_onboard.txt'
+bfn = 'tha_20070608_0650_0830_mag_v4.txt'
+pfn = 'tha_20070608_0650_0830_plasma_v4.txt'
+
+bnew = importdata(bfn, ' ', bhead)
+pnew = importdata(pfn, ' ', phead)
+
+% 08/04/15 data
+bb = bnew.data(1146-bhead:1176-bhead,4:6)
+pp = pnew.data(1148-phead:1178-phead,4:6)
+bb = bnew.data(1146-bhead:1166-bhead,4:6)
+pp = pnew.data(1148-phead:1168-phead,4:6)
+
+
+% 07/06/08 data
+bb = bnew.data(74-bhead:89-bhead,4:6)
+pp = pnew.data(76-phead:91-phead,4:6)
+
+ncase = length(bb)
+[maxvv,intvv,minvv,qratio,lamda1,lamda2,lamda3]=MVAB(bb,ncase)
+[vht]=dht(bb,pp,ncase)
+
+%------------------%
+% Old IRMgs.m CRIB %
+%------------------%
+% These should eventually be arrays of all reconstruction events
+doy = '2007/06/08';
+ti = '06:30:00';
+tf = '08:30:00';
+sc = 'a';
+source = 'reduced';
+dhead = 1;		% # of header lines
+n = 113;			% # of FTEs
+nev = 1;			% The event I'm working on (1 is first, not 0) so 1/113, 2/113, etc.
+va_theta = 40.0		% theta for variance analysis
+va_phi = 0.0		% phi for variance analysis
+theta = 0.0		% theta for optimizing z'
+
+fn = ['th',sc,'_',num2str(doy),'_',num2str(ti),'_',num2str(tf),'_GSM_v4_',source,'.dat'];
+a = importdata(fn,' ', dhead);	% a = all data from doy
+ff=['/FTE/2011/findings/themis_fte_iaga_2011_clean_final_timeorder_recons.txt'];
+fid = fopen(ff);
+f = textscan(fid, '%2c %s %s %s %f %s %s %f %f %f', n);
+fclose(fid);
+
+
+
+dt = zeros(n,1);
+gsm = zeros(n,3);		% position in gsm - 3D
+t = zeros(n,7);		% creates an empty array to fill with times
+ph = zeros(n,1);
+pos = zeros(n,1);
+sc = zeros(n,1);
+f{2}(1:10)		% prints out first 10 start times
+[dim1,dim2] = size(info);  typ = class(info);
+fprintf('\nInput 2 is a %d-by-%d %s array.\n', dim1, dim2, typ);
+
+
+%f = struct('sc',sc,'t',t,'dt',dt,'pos',pos,'phase',ph, 'gsm', gsm);
+
+%f.sc = textscan(fid,'%2c', n);
+%for i = 1:n 
+%  f.t(i,1) = textscan(fid,'%*2c%19q', 1);
+%  f.t(i,2) = textscan(fid,'%*2c%19*q%s', 1);
+%  f.t(i,3) = textscan(fid,'%*2c%19*q%*s%s', 1);
+%end
+
+%--------------%
+% In Progress: %
+%--------------%
++ Is my time adjustment right in MatLab?
++ How do I get the "f.t" array populated with info from the file (format question)?
++ Should I turn this matlab program into a function to call with keywords?
+- How to V0 and VHT compare to the MHD reconstruction?
+- 
+
+
+%--------------%
+% Instructions %
+%--------------%
+% Run the following line in Lab, with the inputs on the right () and outputs on the left []:
+% Date/Time
+doy = '2007/06/08';
+ti = '06:30:00';
+tf = '08:30:00';
+
+% Spacecraft/Event Data
+sc = 'a';
+src = 'reduced';
+nev = 1;            % event number/line number
+n = 113;            % # of events in file
+w = 2;              % of extra data points to include
+
+%Angles
+pol = 5.0;
+azi = 60.0;
+[zs]=dve_angle_loop(doy, ti, tf, sc, src, nev, w, pol, azi)
+
+[]=dve_gs_plot(doy, ti, tf, sc, src, nev, n, w, pol, azi)
+
+% Coordinate System Stuff
+%va_theta = 0.0;
+%va_phi = 0.0;
+%theta = 0.0;
+
+
+
+disp(['EVENT NUMBER IS ',num2str(nev)]);
+disp(['va_theta=',num2str(va_theta)]);
+disp(['va_phi=',num2str(va_phi)]);
+disp(['theta=',num2str(theta)]);
+
+[vht, V0]=dve_IRMgs(doy,ti,tf,sc,source,nev,va_theta,va_phi,theta)
+[theta]=dve_gs_plot(doy, ti, tf, sc, src, nev, n, w)
+
+
+zs=[-0.516, -0.301, -0.802]
+
+
+
+%---------------------%
+% RECONSTRUCTED DATES %
+%---------------------%
+
+%---%
+% 1 %
+%---%
+n = 113;          
+w = 2;
+doy = '2007/06/08';
+ti = '06:30:00';
+tf = '08:30:00';
+sc = 'a';
+src = 'reduced';
+nev = 1;           
+pol = 5.0;
+azi = 60.0;
+
+%---%
+% 2 %
+%---%
+n = 113;          
+w = 2;
+doy = '2007/06/08';
+ti = '06:30:00';
+tf = '08:30:00';
+sc = 'a';
+src = 'reduced';
+nev = 5;           
+pol = 10.0;
+azi = 45.0;
+[zs]=dve_angle_loop(doy, ti, tf, sc, src, nev,n, w, pol, azi)
+
+%---%
+% 3 %
+%---%
+n = 113;          
+w = 2;           % MHD starts at 060349, ours starts 14 seconds (4.67 data points) later.
+doy = '2008/04/05';
+ti = '03:00:00';
+tf = '12:00:00';
+sc = 'b';
+src = 'onboard';
+nev = 30;           
+pol = 1.0;
+azi = 10.0;
+[zs]=dve_angle_loop(doy, ti, tf, sc, src, nev,n, w, pol, azi)
+
+
+
+
+
+
+
+
+
+
+
+

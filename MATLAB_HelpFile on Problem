@@ -1,0 +1,92 @@
+Store or retrieve GUI data
+Syntax
+guidata(object_handle,data)
+data = guidata(object_handle)
+
+Description
+guidata(object_handle,data) stores the variable data as GUI data. If object_handle is not a figure handle, then the object's parent figure is used. data can be any MATLAB variable, but is typically a structure, which enables you to add new fields as required.
+
+guidata can manage only one variable at any time. Subsequent calls to guidata(object_handle,data) overwrite the previously created version of GUI data.
+
+GUIDE Uses guidata   GUIDE uses guidata to store and maintain the handles structure. In a GUIDE GUI code file, do not overwrite the handles structure or your GUI will no longer work. If you need to store data other than handles for your GUI, you can add new fields to the handles structure and safely place your data there. See GUI Data in the MATLAB documentation.
+data = guidata(object_handle) returns previously stored data, or an empty matrix if nothing is stored.
+
+To change the data managed by guidata:
+
+Get a copy of the data with the command data = guidata(object_handle).
+
+Make the desired changes to data.
+
+Save the changed version of data with the command guidata(object_handle,data).
+
+guidata provides application developers with a convenient interface to a figure's application data:
+
+You do not need to create and maintain a hard-coded property name for the application data throughout your source code.
+
+You can access the data from within a subfunction callback routine using the component's handle (which is returned by gcbo), without needing to find the figure's handle.
+
+If you are not using GUIDE, guidata is particularly useful in conjunction with guihandles, which creates a structure containing the handles of all the components in a GUI.
+
+Examples
+This example calls guidata to save a structure containing a GUI figure's application data from within the initialization section of the application code file. The first section shows how to do this within a GUI you create manually. The second section shows how the code differs when you use GUIDE to create a template code file. GUIDE provides a handles structure as an argument to all subfunction callbacks, so you do not need to call guidata to obtain it. You do, however, need to call guidata to save changes you make to the structure.
+
+Using guidata in a Programmed GUI
+Calling the guihandles function creates the structure into which your code places additional data. It contains all handles used by the figure at the time it is called, generating field names based on each object's Tag property.
+
+% Create figure to use as GUI in your main function or a subfunction
+figure_handle = figure('Toolbar','none');
+% create structure of handles
+myhandles = guihandles(figure_handle); 
+% Add some additional data as a new field called numberOfErrors
+myhandles.numberOfErrors = 0; 
+% Save the structure
+guidata(figure_handle,myhandles) 
+You can recall the data from within a subfunction callback, modify it, and then replace the structure in the figure:
+
+function My_Callback()
+% ...
+% Get the structure using guidata in the subfunction
+myhandles = guidata(gcbo);
+% Modify the value of your counter
+myhandles.numberOfErrors = myhandles.numberOfErrors + 1;
+% Save the change you made to the structure
+guidata(gcbo,myhandles) 
+Using guidata in a GUIDE GUI
+If you use GUIDE, you do not need to call guihandles to create a structure, because GUIDE generates a handles structure that contains the GUI's handles. You can add your own data to it, for example from within the OpeningFcn template that GUIDE creates:
+
+% --- Executes just before simple_gui_tab is made visible.
+function my_GUIDE_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to simple_gui_tab (see VARARGIN)
+% ...
+
+% add some additional data as a new field called numberOfErrors
+handles.numberOfErrors = 0;
+% Save the change you made to the structure
+guidata(hObject,handles)
+Notice that you use the input argument hObject in place of gcbo to refer to the object whose callback is executing.
+
+Suppose you needed to access the numberOfErrors field in a push button callback. Your callback code now looks something like this:
+
+% --- Executes on button press in pushbutton1.
+function my_GUIDE_GUI_pushbutton1_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% ...
+
+% No need to call guidata to obtain a structure;
+% it is provided by GUIDE via the handles argument
+handles.numberOfErrors = handles.numberOfErrors + 1;
+% save the changes to the structure
+guidata(hObject,handles)
+See Also
+getappdata | guide | guihandles | setappdata
+
+ 	
+Was this topic helpful?   
+ 
+

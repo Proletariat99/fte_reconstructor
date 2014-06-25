@@ -1,0 +1,780 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>dveGUI_load_data</title><meta name="generator" content="MATLAB 7.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-08-03"><meta name="DC.source" content="dveGUI_load_data.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> varargout = dveGUI_load_data(varargin)
+<span class="comment">% DVE_LOAD_DATA MATLAB code for dveGUI_load_data.fig</span>
+<span class="comment">%      DVE_LOAD_DATA, by itself, creates a new DVE_LOAD_DATA or raises the existing</span>
+<span class="comment">%      singleton*.</span>
+<span class="comment">%</span>
+<span class="comment">%      H = DVE_LOAD_DATA returns the handle to a new DVE_LOAD_DATA or the handle to</span>
+<span class="comment">%      the existing singleton*.</span>
+<span class="comment">%</span>
+<span class="comment">%      DVE_LOAD_DATA('CALLBACK',hObject,eventData,handles,...) calls the local</span>
+<span class="comment">%      function named CALLBACK in DVE_LOAD_DATA.M with the given input arguments.</span>
+<span class="comment">%</span>
+<span class="comment">%      DVE_LOAD_DATA('Property','Value',...) creates a new DVE_LOAD_DATA or raises the</span>
+<span class="comment">%      existing singleton*.  Starting from the left, property value pairs are</span>
+<span class="comment">%      applied to the GUI before dveGUI_load_data_OpeningFcn gets called.  An</span>
+<span class="comment">%      unrecognized property name or invalid value makes property application</span>
+<span class="comment">%      stop.  All inputs are passed to dveGUI_load_data_OpeningFcn via varargin.</span>
+<span class="comment">%</span>
+<span class="comment">%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one</span>
+<span class="comment">%      instance to run (singleton)".</span>
+<span class="comment">%</span>
+<span class="comment">% See also: GUIDE, GUIDATA, GUIHANDLES</span>
+
+<span class="comment">% Edit the above text to modify the response to help dveGUI_load_data</span>
+
+<span class="comment">% Last Modified by GUIDE v2.5 03-Aug-2011 11:53:40</span>
+
+<span class="comment">% Begin initialization code - DO NOT EDIT</span>
+gui_Singleton = 1;
+gui_State = struct(<span class="string">'gui_Name'</span>,       mfilename, <span class="keyword">...</span>
+  <span class="string">'gui_Singleton'</span>,  gui_Singleton, <span class="keyword">...</span>
+  <span class="string">'gui_OpeningFcn'</span>, @dveGUI_load_data_OpeningFcn, <span class="keyword">...</span>
+  <span class="string">'gui_OutputFcn'</span>,  @dveGUI_load_data_OutputFcn, <span class="keyword">...</span>
+  <span class="string">'gui_LayoutFcn'</span>,  [] , <span class="keyword">...</span>
+  <span class="string">'gui_Callback'</span>,   []);
+<span class="keyword">if</span> nargin &amp;&amp; ischar(varargin{1})
+  gui_State.gui_Callback = str2func(varargin{1});
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> nargout
+  [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+<span class="keyword">else</span>
+  gui_mainfcn(gui_State, varargin{:});
+<span class="keyword">end</span>
+<span class="comment">% End initialization code - DO NOT EDIT</span>
+
+
+<span class="comment">% --- Executes just before dveGUI_load_data is made visible.</span>
+<span class="keyword">function</span> dveGUI_load_data_OpeningFcn(hObject, eventdata, handles, varargin)
+<span class="comment">% This function has no output args, see OutputFcn.</span>
+<span class="comment">% hObject    handle to figure</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+<span class="comment">% varargin   command line arguments to dveGUI_load_data (see VARARGIN)</span>
+
+<span class="comment">% Choose default command line output for dveGUI_load_data</span>
+handles.output = hObject;
+
+<span class="comment">% Update handles structure</span>
+guidata(hObject, handles);
+
+<span class="comment">% UIWAIT makes dveGUI_load_data wait for user response (see UIRESUME)</span>
+<span class="comment">% uiwait(handles.figure1);</span>
+
+
+<span class="comment">% --- Outputs from this function are returned to the command line.</span>
+<span class="keyword">function</span> varargout = dveGUI_load_data_OutputFcn(hObject, eventdata, handles)
+<span class="comment">% Get default command line output from handles structure</span>
+varargout{1} = handles.output;
+
+
+<span class="comment">% --- Executes on selection change in pm_doy.</span>
+<span class="keyword">function</span> pm_doy_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.doy = contents{get(hObject,<span class="string">'Value'</span>)};
+disp([<span class="string">'handles.doy from callbackFcn= '</span>, handles.doy])
+guidata(hObject, handles);
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> pm_doy_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to pm_doy (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: popupmenu controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.doy = contents{get(hObject,<span class="string">'Value'</span>)};
+disp([<span class="string">'handles.doy from createFcn= '</span>, handles.doy])
+
+
+<span class="keyword">function</span> etxt_ti_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to etxt_ti (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'String') returns contents of etxt_ti as text</span>
+<span class="comment">%        str2double(get(hObject,'String')) returns contents of etxt_ti as a double</span>
+handles.ti=get(hObject,<span class="string">'String'</span>);
+disp([<span class="string">'handles.ti from callbackFcn= '</span>,handles.ti])
+guidata(hObject, handles);
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> etxt_ti_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to etxt_ti (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: edit controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+handles.ti=get(hObject,<span class="string">'String'</span>);
+disp([<span class="string">'handles.ti from createFcn= '</span>,handles.ti])
+
+
+<span class="keyword">function</span> etxt_tf_Callback(hObject, eventdata, handles)
+handles.tf=get(hObject,<span class="string">'String'</span>);
+disp([<span class="string">'handles.tf from callbackFcn= '</span>,handles.tf])
+guidata(hObject, handles);
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> etxt_tf_CreateFcn(hObject, eventdata, handles)
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+handles.tf=get(hObject,<span class="string">'String'</span>);
+disp([<span class="string">'handles.tf from createFcn= '</span>,handles.tf])
+
+
+<span class="comment">% --- Executes on selection change in pm_sc.</span>
+<span class="keyword">function</span> pm_sc_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.sc = contents{get(hObject,<span class="string">'Value'</span>)};
+guidata(hObject, handles);
+disp([<span class="string">'handles.sc from callbackFcn= '</span>,handles.sc])
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> pm_sc_CreateFcn(hObject, eventdata, handles)
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.sc = contents{get(hObject,<span class="string">'Value'</span>)};
+guidata(hObject, handles);
+disp([<span class="string">'handles.sc from createFcn= '</span>,handles.sc])
+
+
+<span class="comment">% --- Executes on selection change in pm_src.</span>
+<span class="keyword">function</span> pm_src_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.src = contents{get(hObject,<span class="string">'Value'</span>)};
+guidata(hObject, handles);
+disp([<span class="string">'handles.src from callbackFcn= '</span>,handles.src])
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> pm_src_CreateFcn(hObject, eventdata, handles)
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+contents = cellstr(get(hObject,<span class="string">'String'</span>));
+handles.src = contents{get(hObject,<span class="string">'Value'</span>)};
+guidata(hObject, handles);
+disp([<span class="string">'handles.src from createFcn= '</span>,handles.src])
+
+
+<span class="keyword">function</span> etxt_nev_Callback(hObject, eventdata, handles)
+handles.nev=str2double(get(hObject,<span class="string">'String'</span>));
+disp([<span class="string">'handles.nev from callbackFcn= '</span>,num2str(handles.nev)])
+guidata(hObject, handles);
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> etxt_nev_CreateFcn(hObject, eventdata, handles)
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+  set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+handles.nev=str2double(get(hObject,<span class="string">'String'</span>));
+disp([<span class="string">'handles.nev from CreateFcn= '</span>,num2str(handles.nev)])
+guidata(hObject, handles);
+
+
+<span class="keyword">function</span> etxt_w_Callback(hObject, eventdata, handles)
+handles.w=str2double(get(hObject,<span class="string">'String'</span>));
+disp([<span class="string">'handles.w from callbackFcn= '</span>,num2str(handles.w)])
+guidata(hObject, handles);
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> etxt_w_CreateFcn(hObject, eventdata, handles)
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+handles.w=str2double(get(hObject,<span class="string">'String'</span>));
+disp([<span class="string">'handles.w from CreateFcn= '</span>,num2str(handles.w)])
+guidata(hObject, handles);
+
+<span class="comment">% --- Executes on button press in btn_load.</span>
+<span class="keyword">function</span> btn_load_Callback(hObject, eventdata, handles)
+
+guidata(hObject, handles);
+handles.dhead=1;
+handles.tcf = 24*3600.;  <span class="comment">%time conversion factor</span>
+handles.yr = sscanf(handles.doy,<span class="string">'%4c%*6c'</span>,2);
+handles.month = sscanf(handles.doy, <span class="string">'%*5c%2c%*3c'</span>,2);
+handles.day = sscanf(handles.doy, <span class="string">'%*8c%2c'</span>,2);
+HHi = sscanf(handles.ti,<span class="string">'%2c%0.2*4c'</span>);
+MMi = sscanf(handles.ti, <span class="string">'%*3c%2c0%*2c'</span>, 2);
+SSi = sscanf(handles.ti, <span class="string">'%*6c%2c0'</span>, 2);
+HHf = sscanf(handles.tf,<span class="string">'%2c%0.2*4c'</span>);
+MMf = sscanf(handles.tf, <span class="string">'%*3c%2c0%*2c'</span>, 2);
+SSf = sscanf(handles.tf, <span class="string">'%*6c%2c0'</span>, 2);
+<span class="comment">% File 1 %</span>
+fn = [<span class="string">'th'</span>,handles.sc,<span class="string">'_'</span>,num2str(strcat(handles.yr,handles.month,handles.day)),<span class="string">'_'</span>,num2str(strcat(HHi,MMi)),<span class="string">'_'</span>,num2str(strcat(HHf,MMf)),<span class="string">'_GSM_v4_'</span>,handles.src,<span class="string">'.dat'</span>];
+handles.a = importdata(fn,<span class="string">' '</span>,handles.dhead);
+disp([<span class="string">'handles.a is loaded.  Class(handles.a.data)  = '</span>,class(handles.a.data)])
+disp([<span class="string">'                      Size(handles.a.data)  = '</span>, num2str(size(handles.a.data))])
+
+<span class="comment">% File 2 %</span>
+handles.n=113;
+fnsh=[<span class="string">'/FTE/2011/findings/themis_fte_iaga_2011_msheath.txt'</span>];
+mshfid = fopen(fnsh);
+handles.msh = textscan(mshfid, <span class="string">'%s %s %s %s %f %s %s %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f'</span>, handles.n);
+fclose(mshfid);
+disp([<span class="string">'handles.msh is loaded.  Class(handles.msh.data)  = '</span>,class(handles.msh)])
+disp([<span class="string">'                      Size(handles.msh.data)  = '</span>, num2str(size(handles.msh))])
+
+<span class="comment">% File 3 %</span>
+ff=<span class="string">'/FTE/2011/findings/themis_fte_iaga_2011_clean_final_timeorder_recons.txt'</span>;
+fid = fopen(ff);
+handles.f = textscan(fid, <span class="string">'%2c %s %s %s %f %s %s %f %f %f'</span>, handles.n);
+fclose(fid);
+disp([<span class="string">'handles.f is loaded.  Class(handles.f.data)  = '</span>,class(handles.f)])
+disp([<span class="string">'                      Size(handles.f.data)  = '</span>, num2str(size(handles.f))])
+
+handles.nden=1e6;         <span class="comment">%factor for density</span>
+handles.nt  =1e6;         <span class="comment">%factor for temperature</span>
+handles.nv  =1e3;         <span class="comment">%factor for velocity</span>
+handles.nb  =1e-9;        <span class="comment">%factor for magnetic field</span>
+handles.kb  =1.38*1e-23;  <span class="comment">%Boltzmann's constant</span>
+handles.kb2 = 8.61739*1e-5;   <span class="comment">% Boltzmann's constant (eV/K);</span>
+handles.miu =4.0*pi*1e-7; <span class="comment">%permeability</span>
+handles.mp  =1.67*1e-27;  <span class="comment">%proton mass</span>
+
+msh_vx = handles.msh{13}(handles.nev);
+msh_vy = handles.msh{14}(handles.nev);
+msh_vz = handles.msh{15}(handles.nev);
+msh_v = [msh_vx,msh_vy,msh_vz];
+
+disp([<span class="string">'msh_vx='</span>,num2str(msh_vx)]);
+disp([<span class="string">'msh_vy='</span>,num2str(msh_vy)]);
+disp([<span class="string">'msh_vz='</span>,num2str(msh_vz)]);
+
+handles.V0=msh_v;
+nV0=handles.V0/norm(handles.V0);
+handles.xs = -nV0;
+
+disp([<span class="string">'h.xs= '</span>,num2str(handles.xs)]);
+disp([<span class="string">'h.V0= '</span>,num2str(handles.V0)]);
+
+BX=handles.a.data(:,2);
+BY=handles.a.data(:,3);
+BZ=handles.a.data(:,4); 	<span class="comment">% Assigns Bx, By, Bz (from file - GSM)</span>
+VX=handles.a.data(:,6);
+VY=handles.a.data(:,7);
+VZ=handles.a.data(:,8); 	<span class="comment">% Assigns Vx, Vy, Vz (from file - (km/s(GSE))</span>
+Nx=handles.a.data(:,10); 					<span class="comment">% assigns plasma N density from file (cm^-3)</span>
+Tx=handles.a.data(:,11); 					<span class="comment">% assigns temp from file (K)</span>
+idata=1:length(BX);                 <span class="comment">% index from 1 to (# of BX)</span>
+<span class="comment">%============%</span>
+<span class="comment">% TIME STUFF %</span>
+<span class="comment">%============%</span>
+sdoy = strcat(num2str(handles.yr),<span class="string">'-'</span>,num2str(handles.month),<span class="string">'-'</span>,num2str(handles.day));
+tstart = strcat(sdoy,<span class="string">'/'</span>,handles.ti);
+tstop = strcat(sdoy,<span class="string">'/'</span>,handles.tf);
+<span class="comment">%-------------------------------------------------%</span>
+<span class="comment">% i &amp; f consider only the start/stop time of the  %</span>
+<span class="comment">% entire data set (on the scale of hours)         %</span>
+<span class="comment">%-------------------------------------------------%</span>
+tsi = datestr(tstart, <span class="string">'mmmm/dd/yyyy HH:MM:SS:FFF'</span>);
+tsf = datestr(tstop, <span class="string">'mmmm/dd/yyyy HH:MM:SS:FFF'</span>);
+vtsi = datevec(tsi, <span class="string">'mmmm/dd/yyyy HH:MM:SS:FFF'</span>);
+vtsf = datevec(tsf, <span class="string">'mmmm/dd/yyyy HH:MM:SS:FFF'</span>);
+dni = datenum(vtsi);
+dnf = datenum(vtsf);
+<span class="comment">%---------------------------------%</span>
+<span class="comment">% 1 &amp; 2 consider stop/start times %</span>
+<span class="comment">% for FTE from the file or array  %</span>
+<span class="comment">%---------------------------------%</span>
+t1 = handles.f{2}(handles.nev);
+t2 = handles.f{4}(handles.nev);
+fvts1 = datevec(t1, <span class="string">'yyyy-mm-dd/HH:MM:SS'</span>);
+fvts2 = datevec(t2, <span class="string">'yyyy-mm-dd/HH:MM:SS'</span>);
+fdn1 = datenum(fvts1);
+fdn2 = datenum(fvts2);
+<span class="comment">%------------------------------------%</span>
+<span class="comment">% a &amp; b consider adjusted FTE window %</span>
+<span class="comment">% set by the user input 'w'          %</span>
+<span class="comment">%------------------------------------%</span>
+t1f1 = etime(fvts1,vtsi);   <span class="comment">% returns number of seconds from start of window to start of FTE</span>
+t1f2 = etime(fvts2,vtsi);   <span class="comment">% elapsed time from start of window to stop of FTE (s)</span>
+tstep = handles.a.data(:,1);
+j = tstep &gt;= t1f1 &amp; tstep &lt; t1f2;
+k = find(j);
+ns1 = k(1)-handles.w;                <span class="comment">% adds two data points to either side</span>
+ns2 = k(end) + handles.w;            <span class="comment">% of FTE</span>
+i1 = ns1;
+i2 = ns2;
+<span class="comment">%================%</span>
+<span class="comment">% TIME STUFF END %</span>
+<span class="comment">%================%</span>
+handles.bc=[BX(i1:i2) BY(i1:i2) BZ(i1:i2)];				<span class="comment">% re-assigns B for some reason, should be the same as above.</span>
+handles.vp=[VX(i1:i2) VY(i1:i2) VZ(i1:i2)];
+handles.Nx = Nx;
+handles.Tx = Tx;
+handles.lenb = length(handles.bc(:,1));
+lenb = handles.lenb;
+<span class="comment">% Density for window ta to tb</span>
+[EHT,EC,HTR,HTslope,vht]=HTcoef(handles.bc,handles.vp,lenb);
+[Kbmax,Kbint,Kbmin,qmva,d1,d2,d3]=MVAB(handles.bc,lenb);
+xtemp = -Kbint;
+ytemp = Kbmax;
+ztemp = Kbmin;
+
+nxorig=ztemp(1);
+nyorig=ztemp(2);
+nzorig=ztemp(3);
+
+handles.mvab_theta=acosd(nzorig);
+handles.mvab_phi=atand(nyorig/nxorig);
+
+<span class="keyword">if</span> (nxorig &lt; 0.0) &amp;&amp; (nyorig &gt;= 0.0);
+    handles.mvab_phi=-handles.mvab_phi+pi;
+<span class="keyword">end</span>
+<span class="keyword">if</span> (nxorig &lt; 0.0) &amp;&amp; (nyorig &lt; 0.0);
+    handles.mvab_phi= handles.mvab_phi+pi;
+<span class="keyword">end</span>
+<span class="keyword">if</span> (nxorig &gt;= 0.0) &amp;&amp; (nyorig &lt; 0.0);
+    handles.mvab_phi=-handles.mvab_phi+pi*2.;
+<span class="keyword">end</span>
+
+disp([<span class="string">'handles.mvab_phi='</span>,num2str(handles.mvab_phi)])
+disp([<span class="string">'handles.mvab_theta='</span>,num2str(handles.mvab_theta)])
+
+
+handles.mvab_theta=acosd(ztemp);
+handles.mvab_phi=atand(ytemp/xtemp);
+
+
+dveGUI_controller(handles)
+</pre><img vspace="5" hspace="5" src="dveGUI_load_data_01.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.12<br></p></div><!--
+##### SOURCE BEGIN #####
+function varargout = dveGUI_load_data(varargin)
+% DVE_LOAD_DATA MATLAB code for dveGUI_load_data.fig
+%      DVE_LOAD_DATA, by itself, creates a new DVE_LOAD_DATA or raises the existing
+%      singleton*.
+%
+%      H = DVE_LOAD_DATA returns the handle to a new DVE_LOAD_DATA or the handle to
+%      the existing singleton*.
+%
+%      DVE_LOAD_DATA('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in DVE_LOAD_DATA.M with the given input arguments.
+%
+%      DVE_LOAD_DATA('Property','Value',...) creates a new DVE_LOAD_DATA or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before dveGUI_load_data_OpeningFcn gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to dveGUI_load_data_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
+
+% Edit the above text to modify the response to help dveGUI_load_data
+
+% Last Modified by GUIDE v2.5 03-Aug-2011 11:53:40
+
+% Begin initialization code - DO NOT EDIT
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+  'gui_Singleton',  gui_Singleton, ...
+  'gui_OpeningFcn', @dveGUI_load_data_OpeningFcn, ...
+  'gui_OutputFcn',  @dveGUI_load_data_OutputFcn, ...
+  'gui_LayoutFcn',  [] , ...
+  'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+  gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+  [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+  gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+% REPLACE_WITH_DASH_DASH- Executes just before dveGUI_load_data is made visible.
+function dveGUI_load_data_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to dveGUI_load_data (see VARARGIN)
+
+% Choose default command line output for dveGUI_load_data
+handles.output = hObject;
+
+% Update handles structure
+guidata(hObject, handles);
+
+% UIWAIT makes dveGUI_load_data wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+
+% REPLACE_WITH_DASH_DASH- Outputs from this function are returned to the command line.
+function varargout = dveGUI_load_data_OutputFcn(hObject, eventdata, handles)
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+
+% REPLACE_WITH_DASH_DASH- Executes on selection change in pm_doy.
+function pm_doy_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,'String'));
+handles.doy = contents{get(hObject,'Value')};
+disp(['handles.doy from callbackFcn= ', handles.doy])
+guidata(hObject, handles);
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function pm_doy_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to pm_doy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+contents = cellstr(get(hObject,'String'));
+handles.doy = contents{get(hObject,'Value')};
+disp(['handles.doy from createFcn= ', handles.doy])
+
+
+function etxt_ti_Callback(hObject, eventdata, handles)
+% hObject    handle to etxt_ti (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of etxt_ti as text
+%        str2double(get(hObject,'String')) returns contents of etxt_ti as a double
+handles.ti=get(hObject,'String');
+disp(['handles.ti from callbackFcn= ',handles.ti])
+guidata(hObject, handles);
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function etxt_ti_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to etxt_ti (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+handles.ti=get(hObject,'String');
+disp(['handles.ti from createFcn= ',handles.ti])
+
+
+function etxt_tf_Callback(hObject, eventdata, handles)
+handles.tf=get(hObject,'String');
+disp(['handles.tf from callbackFcn= ',handles.tf])
+guidata(hObject, handles);
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function etxt_tf_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+handles.tf=get(hObject,'String');
+disp(['handles.tf from createFcn= ',handles.tf])
+
+
+% REPLACE_WITH_DASH_DASH- Executes on selection change in pm_sc.
+function pm_sc_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,'String'));
+handles.sc = contents{get(hObject,'Value')};
+guidata(hObject, handles);
+disp(['handles.sc from callbackFcn= ',handles.sc])
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function pm_sc_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+contents = cellstr(get(hObject,'String'));
+handles.sc = contents{get(hObject,'Value')};
+guidata(hObject, handles);
+disp(['handles.sc from createFcn= ',handles.sc])
+
+
+% REPLACE_WITH_DASH_DASH- Executes on selection change in pm_src.
+function pm_src_Callback(hObject, eventdata, handles)
+contents = cellstr(get(hObject,'String'));
+handles.src = contents{get(hObject,'Value')};
+guidata(hObject, handles);
+disp(['handles.src from callbackFcn= ',handles.src])
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function pm_src_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+contents = cellstr(get(hObject,'String'));
+handles.src = contents{get(hObject,'Value')};
+guidata(hObject, handles);
+disp(['handles.src from createFcn= ',handles.src])
+
+
+function etxt_nev_Callback(hObject, eventdata, handles)
+handles.nev=str2double(get(hObject,'String'));
+disp(['handles.nev from callbackFcn= ',num2str(handles.nev)])
+guidata(hObject, handles);
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function etxt_nev_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+  set(hObject,'BackgroundColor','white');
+end
+handles.nev=str2double(get(hObject,'String'));
+disp(['handles.nev from CreateFcn= ',num2str(handles.nev)])
+guidata(hObject, handles);
+
+
+function etxt_w_Callback(hObject, eventdata, handles)
+handles.w=str2double(get(hObject,'String'));
+disp(['handles.w from callbackFcn= ',num2str(handles.w)])
+guidata(hObject, handles);
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function etxt_w_CreateFcn(hObject, eventdata, handles)
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+handles.w=str2double(get(hObject,'String'));
+disp(['handles.w from CreateFcn= ',num2str(handles.w)])
+guidata(hObject, handles);
+
+% REPLACE_WITH_DASH_DASH- Executes on button press in btn_load.
+function btn_load_Callback(hObject, eventdata, handles)
+
+guidata(hObject, handles);
+handles.dhead=1;
+handles.tcf = 24*3600.;  %time conversion factor
+handles.yr = sscanf(handles.doy,'%4c%*6c',2);
+handles.month = sscanf(handles.doy, '%*5c%2c%*3c',2);
+handles.day = sscanf(handles.doy, '%*8c%2c',2);
+HHi = sscanf(handles.ti,'%2c%0.2*4c');
+MMi = sscanf(handles.ti, '%*3c%2c0%*2c', 2);
+SSi = sscanf(handles.ti, '%*6c%2c0', 2);
+HHf = sscanf(handles.tf,'%2c%0.2*4c');
+MMf = sscanf(handles.tf, '%*3c%2c0%*2c', 2);
+SSf = sscanf(handles.tf, '%*6c%2c0', 2);
+% File 1 %
+fn = ['th',handles.sc,'_',num2str(strcat(handles.yr,handles.month,handles.day)),'_',num2str(strcat(HHi,MMi)),'_',num2str(strcat(HHf,MMf)),'_GSM_v4_',handles.src,'.dat'];
+handles.a = importdata(fn,' ',handles.dhead);
+disp(['handles.a is loaded.  Class(handles.a.data)  = ',class(handles.a.data)])
+disp(['                      Size(handles.a.data)  = ', num2str(size(handles.a.data))])
+
+% File 2 %
+handles.n=113;
+fnsh=['/FTE/2011/findings/themis_fte_iaga_2011_msheath.txt'];
+mshfid = fopen(fnsh);
+handles.msh = textscan(mshfid, '%s %s %s %s %f %s %s %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f', handles.n);
+fclose(mshfid);
+disp(['handles.msh is loaded.  Class(handles.msh.data)  = ',class(handles.msh)])
+disp(['                      Size(handles.msh.data)  = ', num2str(size(handles.msh))])
+
+% File 3 %
+ff='/FTE/2011/findings/themis_fte_iaga_2011_clean_final_timeorder_recons.txt';
+fid = fopen(ff);
+handles.f = textscan(fid, '%2c %s %s %s %f %s %s %f %f %f', handles.n);
+fclose(fid);
+disp(['handles.f is loaded.  Class(handles.f.data)  = ',class(handles.f)])
+disp(['                      Size(handles.f.data)  = ', num2str(size(handles.f))])
+
+handles.nden=1e6;         %factor for density
+handles.nt  =1e6;         %factor for temperature
+handles.nv  =1e3;         %factor for velocity
+handles.nb  =1e-9;        %factor for magnetic field
+handles.kb  =1.38*1e-23;  %Boltzmann's constant
+handles.kb2 = 8.61739*1e-5;   % Boltzmann's constant (eV/K);
+handles.miu =4.0*pi*1e-7; %permeability
+handles.mp  =1.67*1e-27;  %proton mass
+
+msh_vx = handles.msh{13}(handles.nev);
+msh_vy = handles.msh{14}(handles.nev);
+msh_vz = handles.msh{15}(handles.nev);
+msh_v = [msh_vx,msh_vy,msh_vz];
+
+disp(['msh_vx=',num2str(msh_vx)]);
+disp(['msh_vy=',num2str(msh_vy)]);
+disp(['msh_vz=',num2str(msh_vz)]);
+
+handles.V0=msh_v;
+nV0=handles.V0/norm(handles.V0);
+handles.xs = -nV0;
+
+disp(['h.xs= ',num2str(handles.xs)]);
+disp(['h.V0= ',num2str(handles.V0)]);
+
+BX=handles.a.data(:,2); 
+BY=handles.a.data(:,3); 
+BZ=handles.a.data(:,4); 	% Assigns Bx, By, Bz (from file - GSM)
+VX=handles.a.data(:,6); 
+VY=handles.a.data(:,7); 
+VZ=handles.a.data(:,8); 	% Assigns Vx, Vy, Vz (from file - (km/s(GSE))
+Nx=handles.a.data(:,10); 					% assigns plasma N density from file (cm^-3)
+Tx=handles.a.data(:,11); 					% assigns temp from file (K)
+idata=1:length(BX);                 % index from 1 to (# of BX)
+%============%
+% TIME STUFF %
+%============%
+sdoy = strcat(num2str(handles.yr),'-',num2str(handles.month),'-',num2str(handles.day));
+tstart = strcat(sdoy,'/',handles.ti);
+tstop = strcat(sdoy,'/',handles.tf);
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+% i & f consider only the start/stop time of the  %
+% entire data set (on the scale of hours)         %
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+tsi = datestr(tstart, 'mmmm/dd/yyyy HH:MM:SS:FFF');
+tsf = datestr(tstop, 'mmmm/dd/yyyy HH:MM:SS:FFF');
+vtsi = datevec(tsi, 'mmmm/dd/yyyy HH:MM:SS:FFF');
+vtsf = datevec(tsf, 'mmmm/dd/yyyy HH:MM:SS:FFF');
+dni = datenum(vtsi);
+dnf = datenum(vtsf);
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+% 1 & 2 consider stop/start times %
+% for FTE from the file or array  %
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-%
+t1 = handles.f{2}(handles.nev);
+t2 = handles.f{4}(handles.nev);
+fvts1 = datevec(t1, 'yyyy-mm-dd/HH:MM:SS');
+fvts2 = datevec(t2, 'yyyy-mm-dd/HH:MM:SS');
+fdn1 = datenum(fvts1);
+fdn2 = datenum(fvts2);
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+% a & b consider adjusted FTE window %
+% set by the user input 'w'          %
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%
+t1f1 = etime(fvts1,vtsi);   % returns number of seconds from start of window to start of FTE
+t1f2 = etime(fvts2,vtsi);   % elapsed time from start of window to stop of FTE (s)
+tstep = handles.a.data(:,1);
+j = tstep >= t1f1 & tstep < t1f2;
+k = find(j);
+ns1 = k(1)-handles.w;                % adds two data points to either side
+ns2 = k(end) + handles.w;            % of FTE
+i1 = ns1;
+i2 = ns2;
+%================%
+% TIME STUFF END %
+%================%
+handles.bc=[BX(i1:i2) BY(i1:i2) BZ(i1:i2)];				% re-assigns B for some reason, should be the same as above.
+handles.vp=[VX(i1:i2) VY(i1:i2) VZ(i1:i2)];
+handles.Nx = Nx;
+handles.Tx = Tx;
+handles.lenb = length(handles.bc(:,1));
+lenb = handles.lenb;
+% Density for window ta to tb
+[EHT,EC,HTR,HTslope,vht]=HTcoef(handles.bc,handles.vp,lenb);
+[Kbmax,Kbint,Kbmin,qmva,d1,d2,d3]=MVAB(handles.bc,lenb);
+xtemp = -Kbint;
+ytemp = Kbmax;
+ztemp = Kbmin;
+
+nxorig=ztemp(1);
+nyorig=ztemp(2);
+nzorig=ztemp(3);
+
+handles.mvab_theta=acosd(nzorig);
+handles.mvab_phi=atand(nyorig/nxorig);  
+  
+if (nxorig < 0.0) && (nyorig >= 0.0);
+    handles.mvab_phi=-handles.mvab_phi+pi;
+end
+if (nxorig < 0.0) && (nyorig < 0.0); 
+    handles.mvab_phi= handles.mvab_phi+pi;
+end
+if (nxorig >= 0.0) && (nyorig < 0.0); 
+    handles.mvab_phi=-handles.mvab_phi+pi*2.;
+end
+
+disp(['handles.mvab_phi=',num2str(handles.mvab_phi)])
+disp(['handles.mvab_theta=',num2str(handles.mvab_theta)])
+
+
+handles.mvab_theta=acosd(ztemp);
+handles.mvab_phi=atand(ytemp/xtemp);  
+
+
+dveGUI_controller(handles)
+
+##### SOURCE END #####
+--></body></html>
